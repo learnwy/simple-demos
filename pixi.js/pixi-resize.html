@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PIXIJS Text</title>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+</head>
+<body>
+
+<script>
+  var size = [1334 / 10, 768 / 10];
+  var ratio = size[0] / size[1];
+  var stage = new PIXI.Container(0x333333, true);
+  var renderer = PIXI.autoDetectRenderer({
+    width: size[0],
+    height: size[1],
+    antialias: true
+  });
+  document.body.appendChild(renderer.view);
+  r1 = new PIXI.Graphics();
+  r1.position.set(size[0] / 2, size[1] / 2)
+  r1.lineStyle({
+    width: 2,
+    color: 0xff0000,
+    alpha: 1
+  })
+  r1.beginFill(0x00ffff);
+  r1.drawRect(-50, -50, 100, 100);
+  r1.endFill();
+  stage.addChild(r1);
+  requestAnimationFrame(animate);
+  resize();
+
+
+  renderer.view.style.width = size[0] + 'px';
+  renderer.view.style.height = size[1] + 'px'
+
+  function animate() {
+    requestAnimationFrame(animate);
+    r1.rotation += .01;
+    renderer.render(stage);
+  }
+
+  function resize() {
+    if (window.innerWidth / window.innerHeight >= ratio) {
+      var w = window.innerHeight * ratio;
+      var h = window.innerHeight;
+    } else {
+      var w = window.innerWidth;
+      var h = window.innerWidth / ratio;
+    }
+    // renderer.view.style.width = w + 'px';
+    // renderer.view.style.height = h + 'px';
+    r1.position.set(w / 2, h / 2)
+    renderer.resize(w, h);
+  }
+
+  window.onresize = resize;
+</script>
+
+</body>
+</html>

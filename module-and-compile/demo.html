@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>module demo</title>
+<!--    <script src="node_modules/systemjs/dist/system.js"></script>-->
+</head>
+<body>
+<script>
+    const modules = 'amd system commonjs es6 esnext babel'
+    const excludeModules = 'commonjs es6 esnext babel'
+
+    function loadScript(module, callback) {
+        return new Promise((resolve, reject) => {
+            console.log('load module: (' + module + ') start');
+            const script = document.createElement('script');
+            script.onload = function () {
+                console.log('load module: (' + module + ') complete');
+                resolve()
+            }
+            script.onerror = function (error) {
+                console.log('load module: (' + module + ') error', error);
+                reject(error)
+            }
+            script.src = './dist-' + module + '/main.js'
+            document.head.appendChild(script)
+        })
+    }
+
+    let startPromise = Promise.resolve();
+    // 将所有模块顺序加载
+    // modules.split(' ').filter(module => !excludeModules.includes(module)).forEach(module => {
+    //     startPromise = startPromise.then(() => loadScript(module));
+    // })
+</script>
+
+<!--<script src="node_modules/requirejs/require.js"></script>-->
+<!--<script>-->
+<!--    // test requirejs-->
+<!--    requirejs([], () => {-->
+<!--        // no dep excute-->
+<!--        console.log('no deps requirejs')-->
+<!--    });-->
+<!--    // define add-->
+<!--    define('add', [], () => {-->
+<!--        return (a, b) => a + b-->
+<!--    });-->
+<!--    requirejs(['add'], (add) => {-->
+<!--        // dep on add-->
+<!--        console.log('dep add', add(1, 2))-->
+<!--    });-->
+<!--    loadScript('umd')-->
+<!--    requirejs(['./dist-umd/main'], () => {-->
+<!--        debugger-->
+<!--    })-->
+<!--</script>-->
+
+<!--<script src="node_modules/seajs/dist/sea-debug.js"></script>-->
+<!--<script>-->
+<!--    seajs.config({-->
+<!--        base: './dist/amd',-->
+<!--        alias: {-->
+<!--            './add': './math/add',-->
+<!--            'sub': './math/sub',-->
+<!--            'mul': './math/mul',-->
+<!--            'div': './math/div',-->
+<!--        }-->
+<!--    })-->
+<!--    loadScript('amd')-->
+<!--    seajs.use('main')-->
+<!--</script>-->
+</body>
+</html>

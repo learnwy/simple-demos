@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PIXIJS Text</title>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+</head>
+<body>
+
+<script>
+  const application = new PIXI.Application({
+    antialias: true,
+    resolution: window.devicePixelRatio,
+    width: 500,
+    height: 309
+  })
+  document.body.append(application.view);
+  const text = new PIXI.Text('我是一个文本', {fill: 0xff0000});
+  text.position.set(100, 100)
+  application.stage.addChild(text);
+  application.ticker.update(Date.now());
+</script>
+
+</body>
+</html>

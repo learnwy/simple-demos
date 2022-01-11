@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PIXIJS Graphics</title>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+</head>
+<body>
+
+<script>
+  const viewSize = {
+    width: 500,
+    height: 309
+  }
+  const application = new PIXI.Application({
+    antialias: true,
+    resolution: window.devicePixelRatio,
+    ...viewSize,
+  })
+  document.body.append(application.view);
+  const positionContainer = new PIXI.Container();
+  const scaleContainer = new PIXI.Container();
+
+
+  const graphics = new PIXI.Graphics();
+
+  // Ellipse + line style 2
+  graphics.lineStyle(2, 0xFFFFFF, 1);
+  graphics.beginFill(0xAA4F08, 1);
+  const size = {w: 10, h: 8}
+  graphics.drawEllipse(-size.w / 2, -size.h / 2, size.w, size.h);
+  graphics.endFill();
+
+  // Rectangle + line style 2
+  graphics.lineStyle(10, 0xFFBD01, 1);
+  graphics.beginFill(0xC34288);
+  graphics.drawRect(20 - size.w / 2, - size.h / 2, size.w, size.h);
+  graphics.endFill();
+
+  graphics.rotation = Math.PI * 0.25;
+
+  positionContainer.position.set(viewSize.width / 2, viewSize.height / 2)
+  scaleContainer.scale.set(8)
+
+  positionContainer.addChild(scaleContainer);
+
+  scaleContainer.addChild(graphics);
+
+  application.stage.addChild(positionContainer)
+</script>
+
+</body>
+</html>
